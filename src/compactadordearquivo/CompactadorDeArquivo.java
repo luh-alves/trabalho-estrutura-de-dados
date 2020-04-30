@@ -15,7 +15,7 @@ public class CompactadorDeArquivo {
     }
 
     private static String[] dividirEmPalavras(String texto) {
-        String delimiter = "special" + System.currentTimeMillis() + "divider";
+        String separadoraDePalavras = "special" + System.currentTimeMillis() + "divider";
         String resultado = "";
         String palavraAtual = "";
         for (int i = 0; i < texto.length(); i++) {
@@ -26,18 +26,18 @@ public class CompactadorDeArquivo {
             } else {
                 if (palavraAtual.length() > 0) {
                     resultado += palavraAtual;
-                    resultado += delimiter;
+                    resultado += separadoraDePalavras;
                     palavraAtual = "";
                 }
 
                 resultado += caracterAtual;
                 if (i < texto.length() - 1) {
-                    resultado += delimiter;
+                    resultado += separadoraDePalavras;
                 }
             }
         }
 
-        return resultado.split(delimiter);
+        return resultado.split(separadoraDePalavras);
     }
 
     public static String compactarTexto(String texto) {
@@ -76,11 +76,14 @@ public class CompactadorDeArquivo {
         for (i = 0; i < palavras.length; i++) {
             String palavraAtual = palavras[i];
 
-            if (!Character.isLetter(palavraAtual.charAt(0)) && !Character.isDigit(palavraAtual.charAt(0))) {
+            boolean ePalavra = Character.isLetter(palavraAtual.charAt(0));
+            boolean eNumero = Character.isDigit(palavraAtual.charAt(0));
+
+            if (! ePalavra && ! eNumero) {
                 textoDescompactado = textoDescompactado + palavraAtual;
 
             } else {
-                if (Character.isDigit(palavraAtual.charAt(0))) {
+                if (eNumero) {
                     int posicao = Integer.parseInt(palavraAtual);
                     String palavra = lista.buscarElementoPorPosicao(posicao);
                     textoDescompactado = textoDescompactado + palavra;
