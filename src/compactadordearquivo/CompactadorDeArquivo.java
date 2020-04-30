@@ -83,20 +83,13 @@ public class CompactadorDeArquivo {
                 if (Character.isDigit(palavraAtual.charAt(0))) {
                     int posicao = Integer.parseInt(palavraAtual);
                     String palavra = lista.buscarElementoPorPosicao(posicao);
-
+                    textoDescompactado = textoDescompactado + palavra;
                     lista.removerElemento(palavra);
                     lista.insereInicio(palavra);
 
-                }
-                int posicao = lista.buscarElemento(palavraAtual);
-                if (posicao == -1) {
+                } else {
                     lista.insereInicio(palavraAtual);
                     textoDescompactado = textoDescompactado + palavraAtual;
-                } else {
-                    textoDescompactado = textoDescompactado + posicao;
-
-                    lista.removerElemento(palavraAtual);
-                    lista.insereInicio(palavraAtual);
                 }
             }
 
@@ -107,7 +100,7 @@ public class CompactadorDeArquivo {
     public static void main(String[] args) {
         String entrada = lerDoArquivo();
         String compactado = compactarTexto(entrada);
-        String descompactado = descompactarTexto(entrada);
+        String descompactado = descompactarTexto(compactado);
         System.out.println("----> T E X T O   C O M P A C T A D O <----");
         escreverNoArquivo(compactado);
 
